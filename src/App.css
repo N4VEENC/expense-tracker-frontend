@@ -85,6 +85,46 @@ h1 {
   background: #1d4ed8;
 }
 
+.filters {
+  margin-top: 35px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 12px;
+}
+
+.filters input,
+.filters select {
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #2563eb;
+}
+
+.clear-filter-button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #6b7280;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.clear-filter-button:hover {
+  background: #4b5563;
+}
+
 .expense-list {
   margin-top: 40px;
 }
@@ -144,8 +184,20 @@ h1 {
   background: #b91c1c;
 }
 
+.no-expenses {
+  text-align: center;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  color: #666;
+}
+
 @media (max-width: 850px) {
   .dashboard {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filters {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -161,5 +213,9 @@ h1 {
 
   .expense-form button {
     grid-column: span 1;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
   }
 }

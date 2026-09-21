@@ -15,6 +15,10 @@ function App() {
   const [expenses, setExpenses] = useState([]);
   const [editingId, setEditingId] = useState(null);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [paymentFilter, setPaymentFilter] = useState("");
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -111,13 +115,35 @@ function App() {
 
   const highestExpense =
     expenses.length > 0
-      ? Math.max(...expenses.map((expense) => Number(expense.amount)))
+      ? Math.max(
+          ...expenses.map((expense) => Number(expense.amount))
+        )
       : 0;
 
   const averageExpense =
     expenses.length > 0
       ? totalExpenses / expenses.length
       : 0;
+
+  const filteredExpenses = expenses.filter((expense) => {
+    const matchesSearch = expense.description
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    const matchesCategory =
+      categoryFilter === "" ||
+      expense.category === categoryFilter;
+
+    const matchesPayment =
+      paymentFilter === "" ||
+      expense.paymentMethod === paymentFilter;
+
+    return (
+      matchesSearch &&
+      matchesCategory &&
+      matchesPayment
+    );
+  });
 
   return (
     <div className="app">
@@ -211,48 +237,128 @@ function App() {
         />
 
         <button type="submit">
-          {editingId === null ? "Add Expense" : "Update Expense"}
+          {editingId === null
+            ? "Add Expense"
+            : "Update Expense"}
         </button>
 
       </form>
 
+      <div className="filters">
+
+        <input
+          type="text"
+          placeholder="Search expenses..."
+          value={searchTerm}
+          onChange={(event) =>
+            setSearchTerm(event.target.value)
+          }
+        />
+
+        <select
+          value={categoryFilter}
+          onChange={(event) =>
+            setCategoryFilter(event.target.value)
+          }
+        >
+          <option value="">All Categories</option>
+          <option value="Food">Food</option>
+          <option value="Travel">Travel</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Bills">Bills</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <select
+          value={paymentFilter}
+          onChange={(event) =>
+            setPaymentFilter(event.target.value)
+          }
+        >
+          <option value="">All Payment Methods</option>
+          <option value="UPI">UPI</option>
+          <option value="Cash">Cash</option>
+          <option value="Credit Card">Credit Card</option>
+          <option value="Debit Card">Debit Card</option>
+        </select>
+
+        <button
+          className="clear-filter-button"
+          onClick={() => {
+            setSearchTerm("");
+            setCategoryFilter("");
+            setPaymentFilter("");
+          }}
+        >
+          Clear Filters
+        </button>
+
+      </div>
+
       <div className="expense-list">
 
-        <h2>Expenses</h2>
+        <h2>
+          Expenses ({filteredExpenses.length})
+        </h2>
 
-        {expenses.map((expense) => (
+        {filteredExpenses.length === 0 ? (
+          <p className="no-expenses">
+            No expenses found.
+          </p>
+        ) : (
+          filteredExpenses.map((expense) => (
 
-          <div className="expense-card" key={expense.id}>
+            <div
+              className="expense-card"
+              key={expense.id}
+            >
 
-            <h3>{expense.description}</h3>
+              <h3>{expense.description}</h3>
 
-            <p>Amount: ₹{expense.amount}</p>
-            <p>Category: {expense.category}</p>
-            <p>Payment: {expense.paymentMethod}</p>
-            <p>Date: {expense.expenseDate}</p>
-            <p>Notes: {expense.notes}</p>
+              <p>
+                Amount: ₹{expense.amount}
+              </p>
 
-            <div className="button-group">
+              <p>
+                Category: {expense.category}
+              </p>
 
-              <button
-                className="edit-button"
-                onClick={() => handleEdit(expense)}
-              >
-                Edit
-              </button>
+              <p>
+                Payment: {expense.paymentMethod}
+              </p>
 
-              <button
-                className="delete-button"
-                onClick={() => handleDelete(expense.id)}
-              >
-                Delete
-              </button>
+              <p>
+                Date: {expense.expenseDate}
+              </p>
+
+              <p>
+                Notes: {expense.notes}
+              </p>
+
+              <div className="button-group">
+
+                <button
+                  className="edit-button"
+                  onClick={() => handleEdit(expense)}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className="delete-button"
+                  onClick={() =>
+                    handleDelete(expense.id)
+                  }
+                >
+                  Delete
+                </button>
+
+              </div>
 
             </div>
 
-          </div>
-
-        ))}
+          ))
+        )}
 
       </div>
 

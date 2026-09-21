@@ -1,0 +1,165 @@
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 25px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 32px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 35px;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-card span {
+  color: #666;
+  font-size: 14px;
+}
+
+.dashboard-card h2 {
+  margin: 10px 0 0;
+  font-size: 24px;
+}
+
+.expense-form {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.expense-form input,
+.expense-form select {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.expense-form input:focus,
+.expense-form select:focus {
+  border-color: #2563eb;
+}
+
+.expense-form button {
+  grid-column: span 2;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.expense-form button:hover {
+  background: #1d4ed8;
+}
+
+.expense-list {
+  margin-top: 40px;
+}
+
+.expense-list h2 {
+  margin-bottom: 20px;
+}
+
+.expense-card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+.expense-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.expense-card p {
+  margin: 8px 0;
+  color: #444;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.edit-button,
+.delete-button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.edit-button {
+  background: #2563eb;
+}
+
+.edit-button:hover {
+  background: #1d4ed8;
+}
+
+.delete-button {
+  background: #dc2626;
+}
+
+.delete-button:hover {
+  background: #b91c1c;
+}
+
+@media (max-width: 850px) {
+  .dashboard {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .expense-form {
+    grid-template-columns: 1fr;
+  }
+
+  .expense-form button {
+    grid-column: span 1;
+  }
+}
